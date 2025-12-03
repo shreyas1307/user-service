@@ -11,7 +11,7 @@ public class UserRequest {
     @Email(message = "email must be valid")
     private String email;
 
-    public UserRequest() {};
+    public UserRequest() {}
 
     public UserRequest(String name, String email) {
         this.name = name;
