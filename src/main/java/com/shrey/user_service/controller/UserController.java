@@ -25,4 +25,9 @@ public class UserController {
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/search")
+    public List<UserResponse> searchUsers(@RequestParam String name) {
+        return userService.searchUsers(name);
+    }
 }

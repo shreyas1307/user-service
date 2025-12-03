@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryUserRepository implements UserRepository {
@@ -25,6 +26,17 @@ public class InMemoryUserRepository implements UserRepository {
         storage.put(user.getId(), user);
         return user;
     }
+
+    @Override
+    public List<User> findByNameContaining(String name) {
+        List<User> matches = new ArrayList<>();
+        for(User user : storage.values()) {
+            if(user.getName().toLowerCase().contains(name)) {
+                matches.add(user);
+            }
+        }
+        return matches;
+    };
 
     @Override
     public List<User> findAll() {

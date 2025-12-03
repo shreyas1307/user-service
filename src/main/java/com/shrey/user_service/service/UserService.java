@@ -7,6 +7,7 @@ import com.shrey.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,15 @@ public class UserService {
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
+
+    public List<UserResponse> searchUsers(String name) {
+        List<User> usersList = userRepository.findByNameContaining(name);
+        List<UserResponse> responses = new ArrayList<>();
+        for(User user : usersList) {
+            responses.add(toResponse(user));
+        };
+        return responses;
+    };
 
     private UserResponse toResponse(User user) {
         return new UserResponse(
