@@ -29,17 +29,19 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public List<User> findByNameContaining(String name) {
-        List<User> matches = new ArrayList<>();
-        for(User user : storage.values()) {
-            if(user.getName().toLowerCase().contains(name)) {
-                matches.add(user);
-            }
-        }
-        return matches;
+        return storage
+                .values()
+                .stream()
+                .filter(user -> nameContainsIgnoreCase(user, name))
+                .collect(Collectors.toList());
     };
 
     @Override
     public List<User> findAll() {
         return new ArrayList<>(storage.values());
     }
+
+    private Boolean nameContainsIgnoreCase(User user, String substring) {
+        return user.getName() != null && user.getName().toLowerCase().contains(substring.toLowerCase());
+    };
 }

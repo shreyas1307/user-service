@@ -37,12 +37,10 @@ public class UserService {
     }
 
     public List<UserResponse> searchUsers(String name) {
-        List<User> usersList = userRepository.findByNameContaining(name);
-        List<UserResponse> responses = new ArrayList<>();
-        for(User user : usersList) {
-            responses.add(toResponse(user));
-        };
-        return responses;
+        return userRepository.findByNameContaining(name)
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     };
 
     private UserResponse toResponse(User user) {
