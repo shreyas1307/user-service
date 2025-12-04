@@ -7,8 +7,8 @@ import lombok.Setter;
 import java.time.Instant;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 public class ErrorResponse {
     private Instant timestamp;
     private int status;
@@ -29,4 +29,27 @@ public class ErrorResponse {
         this.details = details;
     }
 
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
+    }
 }
