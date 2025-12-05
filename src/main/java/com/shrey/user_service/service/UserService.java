@@ -2,6 +2,7 @@ package com.shrey.user_service.service;
 
 import com.shrey.user_service.dto.UserRequest;
 import com.shrey.user_service.dto.UserResponse;
+import com.shrey.user_service.exception.UserNotFoundException;
 import com.shrey.user_service.model.User;
 import com.shrey.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public class UserService {
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     };
+
+    public UserResponse getUserById(Long id) {
+        return userRepository.findUserById(id)
+                .map(this::toResponse)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
 
     private UserResponse toResponse(User user) {
         return new UserResponse(

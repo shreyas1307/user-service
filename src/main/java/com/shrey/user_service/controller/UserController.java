@@ -30,4 +30,9 @@ public class UserController {
     public List<UserResponse> searchUsers(@RequestParam String name) {
         return userService.searchUsers(name);
     }
+
+    @GetMapping("/{id}")
+    public UserResponse getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
 }
