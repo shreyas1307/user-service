@@ -6,7 +6,11 @@ import com.shrey.user_service.exception.UserNotFoundException;
 import com.shrey.user_service.model.User;
 import com.shrey.user_service.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
 import java.util.List;
@@ -14,11 +18,17 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
+
+    @Mock
+    private UserRepository repo;
+
+    @InjectMocks
+    private UserService service;
+
     @Test
     void getUserById_shouldReturnUserResponse_whenUserExists() {
-        UserRepository repo = Mockito.mock(UserRepository.class);
-        UserService service = new UserService(repo);
 
         User user = new User(1L, "Shrey", "shreyas@example.com", Instant.now());
         Mockito.when(repo.findUserById(1L)).thenReturn(Optional.of(user));
@@ -32,9 +42,6 @@ public class UserServiceTest {
 
     @Test
     void getUserById_shouldThrowUserNotFoundException() {
-        UserRepository repo = Mockito.mock(UserRepository.class);
-        UserService service = new UserService(repo);
-
         Mockito.when(repo.findUserById(99L)).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class, () -> service.getUserById(99L));
@@ -42,9 +49,6 @@ public class UserServiceTest {
 
     @Test
     void createUser_shouldReturnUserResponseUponSuccess() {
-        UserRepository repo = Mockito.mock(UserRepository.class);
-        UserService service = new UserService(repo);
-
         UserRequest request = new UserRequest("Shrey", "shrey@example.com");
 
         Mockito.when(repo.save(Mockito.any(User.class))).thenAnswer(invocation -> {
@@ -62,9 +66,6 @@ public class UserServiceTest {
 
     @Test
     void searchUsers_shouldReturnMappedResponses() {
-        UserRepository repo = Mockito.mock(UserRepository.class);
-        UserService service = new UserService(repo);
-
         User user1 = new User(1L, "Shrey", "shrey@example.com", Instant.now());
         User user2 = new User(2L, "Shreyas", "shreyas@example.com", Instant.now());
 
@@ -78,9 +79,6 @@ public class UserServiceTest {
 
     @Test
     void getAllUsers_shouldReturnMappedResponses() {
-        UserRepository repo = Mockito.mock(UserRepository.class);
-        UserService service = new UserService(repo);
-
         User user1 = new User(1L, "Shrey", "shrey@example.com", Instant.now());
         User user2 = new User(2L, "Sam", "sam@example.com", Instant.now());
         User user3 = new User(3L, "Alex", "alex@example.com", Instant.now());
