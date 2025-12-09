@@ -15,41 +15,20 @@ public class ErrorResponse {
     private String error;
     private String message;
     private String path;
+    private String code;
+
     @Nullable
     private List<String> details;
 
     public ErrorResponse() {}
 
-    public ErrorResponse(Instant timestamp, int status, String error, String message, String path, List<String> details) {
+    public ErrorResponse(Instant timestamp, int status, String error, String message, String path, String code, List<String> details) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
         this.message = message;
         this.path = path;
-        this.details = details;
-    }
-
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public void setDetails(List<String> details) {
+        this.code = code;
         this.details = details;
     }
 }
