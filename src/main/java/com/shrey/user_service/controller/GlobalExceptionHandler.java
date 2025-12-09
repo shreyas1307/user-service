@@ -67,6 +67,7 @@ public class GlobalExceptionHandler {
             Exception ex,
             HttpServletRequest request
     ) {
+        log.error("Unexpected error at {}: {}", request.getRequestURI(), ex.getMessage());
         ErrorResponse body = buildErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "An unexpected error occurred",
