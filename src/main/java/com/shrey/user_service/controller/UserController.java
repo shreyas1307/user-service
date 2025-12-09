@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest request) {
+    public UserResponse createUser(@jakarta.validation.Valid @RequestBody UserRequest request) {
         return userService.createUser(request);
     };
 
