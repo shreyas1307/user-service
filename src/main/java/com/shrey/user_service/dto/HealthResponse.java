@@ -1,5 +1,10 @@
 package com.shrey.user_service.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class HealthResponse {
     private String status;
     private long timestamp;
@@ -8,22 +13,6 @@ public class HealthResponse {
 
     public HealthResponse(String status, long timestamp) {
         this.status = status;
-        this.timestamp = timestamp;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }
