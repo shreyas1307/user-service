@@ -5,6 +5,7 @@ import com.shrey.user_service.dto.UserResponse;
 import com.shrey.user_service.exception.UserNotFoundException;
 import com.shrey.user_service.model.User;
 import com.shrey.user_service.repository.UserRepository;
+import com.shrey.user_service.strategy.UserSortStrategy;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -35,6 +36,15 @@ public class UserService {
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
+
+    public List<UserResponse> getAllUsersSorted(UserSortStrategy strategy) {
+        List<User> users = userRepository.findAll();
+        List<User> sorted = strategy.sort(users);
+
+        return sorted.stream()
+                .map(this::toResponse)
+                .toList();
+    };
 
     public List<UserResponse> searchUsers(String name) {
         return userRepository.findByNameContaining(name)
